@@ -45,7 +45,7 @@ IncludeLib masm32.lib
         
 
         cmp     B,      0                   ; compare F and 0
-        jl      OThree                      ; jump if F <= 0
+        jle      OThree                      ; jump if F <= 0
         jmp     OF                          ; jump to calculation
         
         ; if b > 0: (b*b - c) / b
