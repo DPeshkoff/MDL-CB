@@ -27,7 +27,6 @@ IncludeLib masm32.lib
 
          .CODE
     Start:
-        mov     F,     0                    ; prepare result
 
     InputB:                                 ; input SWORD B
  Invoke StdOut,         ADDR MsgInputB
@@ -45,7 +44,7 @@ IncludeLib masm32.lib
         
 
         cmp     B,      0                   ; compare F and 0
-        jle      OThree                      ; jump if F <= 0
+        jle     OThree                      ; jump if F <= 0
         jmp     OF                          ; jump to calculation
         
         ; if b > 0: (b*b - c) / b
@@ -54,6 +53,8 @@ IncludeLib masm32.lib
         mov     BX,     B                   ; move B to BX
         imul    BX                          ; DX:AX := B * B
         sub     AX,     Y                   ; AX := AX - Y
+        mov     BX,     B                   ; move B to BX
+        cwd                                 ; sword to sdword for idiv handling (exception '1,5')
         idiv    BX                          ; AX := (DX:AX) / BX
         mov     F,      AX                  ; move stage result to F
         jmp     Output                      ; jump to output section
@@ -68,7 +69,6 @@ IncludeLib masm32.lib
  Invoke StdOut,         ADDR MsgResult      ; output resulting message 
  Invoke StdOut,         ADDR InOutBuffer    ; output the result 
         xor     EDX,     EDX                ; clear EDX
-        xor     ECX,     ECX                ; clear ECX
         xor     EAX,     EAX                ; clear EAX
         xor     EBX,     EBX                ; clear EBX        
  Invoke StdOut, ADDR    MsgExit             ; output exit message 

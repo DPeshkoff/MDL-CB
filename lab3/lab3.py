@@ -1,6 +1,6 @@
 import asyncio
 import random
-from math import floor
+from math import trunc
 
 # Global address variable
 address = "I:/asm/lab3/lab3.exe"
@@ -62,7 +62,7 @@ def manual_test_run (address, args, control_result):
         else:
             print("Test passed \n \n")    
     else:
-        if write_info == True:
+        if write_info == False:
             print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))   
         else:
             print("Test failed \n \n")    
@@ -75,31 +75,39 @@ def auto_test_run (address, lower_border, upper_border):
     if (b <= 0):
         control_result = 3
     else:
-        control_result = floor(floor(floor((b * b)) - y) / b)
+        control_result = trunc(trunc(trunc((b * b)) - y) / b)
 
 
     test_result = asyncio.get_event_loop().run_until_complete(run(address, [b, y]))
-    if (int(control_result) == int(test_result)):
-        if write_info == True:
-            print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
-        else:
-            print("Test passed \n \n")    
+    try:
+        int(test_result)
+    except:
+        print("ValueError: ", test_result)
+        print("Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
     else:
-        if write_info == False:
-            print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format([b, y], control_result, test_result))   
+        if (int(control_result) == int(test_result)):
+            if write_info == True:
+                print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
+            else:
+                print("Test passed \n \n")    
         else:
-            print("Test failed \n \n")    
+            if write_info == False:
+                print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format([b, y], control_result, test_result))   
+            else:
+                print("Test failed \n \n")    
              
+# Main part of the program - no imports
+if __name__ == '__main__':
 
-
-manual_test_run(address, [-1, 2], 3)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
+    manual_test_run(address, [-1, 2], 3)
+    manual_test_run(address, [1, 5], -4)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
