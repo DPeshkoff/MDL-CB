@@ -62,17 +62,16 @@ IncludeLib masm32.lib
         mov     AX,     A                   ; move A to AX
         mov     CX,     Y                   ; move Y to CX
         imul    CX                          ; DX:AX := A * Y
-        mov     AX,     DX                  ; move DX to AX
         mov     BX,     B                   ; move B to BX
         sub     BX,     A                   ; BX := B - A
         imul    BX                          ; DX:AX := A * Y * (B - A)
         mov     CX,     4                   ; move literal 4 to CX
         idiv    CX                          ; AX := (DX:AX) / 4
+        sub     AX,     2                   ; AX := AX - 2
         mov     X,      AX                  ; move AX to X
         mov     AX,     A                   ; move A to AX
         imul    AX                          ; DX:AX := A * A
-        add     X,      AX                  ; X := X + A*A
-        sub     X,      2                   ; X := X - 2
+        add     X,      AX                  ; X := X + A*A                   
  Invoke dwtoa,  X,      ADDR InOutBuffer    ; transfer X to buffer 
  Invoke StdOut,         ADDR MsgResult      ; output resulting message 
  Invoke StdOut,         ADDR InOutBuffer    ; output the result 

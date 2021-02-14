@@ -1,6 +1,6 @@
 import asyncio
 import random
-from math import floor
+from math import trunc
 
 # Global address variable
 address = "I:/asm/lab2/lab2.exe"
@@ -64,44 +64,58 @@ async def run(address, args):
 
 def manual_test_run (address, args, control_result):
     test_result = asyncio.get_event_loop().run_until_complete(run(address, args))
-    if (int(control_result) == int(test_result)):
-        if write_info == True:
-            print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))
-        else:
-            print("Test passed \n \n")    
+    try:
+        int(test_result)
+    except:
+        print("ValueError: ", test_result)
+        print("Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
     else:
-        if write_info == True:
-            print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))   
+        if (int(control_result) == int(test_result)):
+            if write_info == True:
+                print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))
+            else:
+                print("Test passed \n \n")    
         else:
-            print("Test failed \n \n")         
+            if write_info == True:
+                print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))   
+            else:
+                print("Test failed \n \n")         
 
 def auto_test_run (address, lower_border, upper_border):
     a, b, y = random.randint(lower_border, upper_border), random.randint(lower_border, upper_border), random.randint(lower_border, upper_border)
 
-    control_result = floor(floor(((floor((b-a))*floor(a*y))/4)) + floor((a*a)) - 2)
+    control_result = trunc((a * y * (b - a))/4) + a * a - 2
 
 
     test_result = asyncio.get_event_loop().run_until_complete(run(address, [a, b, y]))
-    if (int(control_result) == int(test_result)):
-        if write_info == True:
-            print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([a, b, y], control_result, test_result))
-        else:
-            print("Test passed \n \n")    
+    try:
+        int(test_result)
+    except:
+        print("ValueError: ", test_result)
+        print("Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
     else:
-        if write_info == False:
-            print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format([a, b, y], control_result, test_result))   
+        if (int(control_result) == int(test_result)):
+            if write_info == True:
+                print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([a, b, y], control_result, test_result))
+            else:
+                print("Test passed \n \n")    
         else:
-            print("Test failed \n \n")          
+            if write_info == False:
+                print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format([a, b, y], control_result, test_result))   
+            else:
+                print("Test failed \n \n")    
+                      
+# Main part of the program - no imports
+if __name__ == '__main__':
 
-
-manual_test_run(address, [1,1,2], -1)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
-auto_test_run(address, -5, 5)
+    manual_test_run(address, [1,1,2], -1)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
+    auto_test_run(address, -5, 5)
