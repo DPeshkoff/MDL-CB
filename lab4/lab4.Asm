@@ -32,27 +32,31 @@ IncludeLib masm32.lib
         ns      SWORD   (?),(?),(?),(?),(?),(?)            ; sum of negatives
 
         
- InOutBuffer    DB      100 DUP (?)
+ InOutBuffer    DB      200 DUP (?)
+ 
+         .STACK 4096
+        
 
          .CODE
 OutputMatrix proc near
+
  Invoke StdOut,         ADDR MsgMatrix
         XOR     ECX,    ECX
-        XOR     ESI,    ESI                 ; clear EDX
-        XOR     EDI,    EDI                 ; clear EDI
+        XOR     ESI,    ESI                 ; clear required registers
+        XOR     EDI,    EDI                 
                      
-        mov     CX,     sizeofmatrix                  ; clear EDX
-        mov     DI,     cols
+        mov     CX,     sizeofmatrix        ; loop counter
+        mov     DI,     cols                ; newline counter
         
 OutputMatrixLoop:  
-        mov     EBX,    ECX
+        push    ECX
         cmp     EDI,    0 
         jle     OutputNewLine
         ContinueOutputMatrixLoop: 
  Invoke dwtoa,  matrix[ESI*2], ADDR InOutBuffer ; transfer F to buffer 
  Invoke StdOut,         ADDR InOutBuffer    ; output the result 
  Invoke StdOut,         ADDR Space
-        mov     ECX,    EBX 
+        pop     ECX
         inc     ESI
         dec     EDI
         loop    OutputMatrixLoop
@@ -67,14 +71,16 @@ OutputNewLine:
 OutputMatrix endp
          
 CountRow proc near
+
         XOR     ECX,    ECX
-        XOR     ESI,    ESI                 ; clear EDX
-        XOR     EDI,    EDI                 ; clear EDI             
-        mov     CX,     sizeofmatrix                  ; clear EDX
-        mov     DI,     cols
+        XOR     ESI,    ESI                 
+        XOR     EBX,    EBX                 ; clear required registers
+        XOR     EDX,    EDX        
+        XOR     EDI,    EDI  
+                                   
+        mov     CX,     sizeofmatrix        ; loop counter
+        mov     DI,     cols                ; newline counter
         
-        XOR     EBX,    EBX
-        XOR     EDX,    EDX
         
 CountRowLoop:   
         cmp     EDI,    0
@@ -97,7 +103,6 @@ AddNumber:
 InsertNumber:
         mov   ns[EBX*2], DX
         XOR     EDX,    EDX
-        ;mov     iv,     EBX
         inc     BX
         XOR     EDI,    EDI
         mov     DI,     cols
@@ -106,16 +111,19 @@ InsertNumber:
 CountRow endp         
 
 OutputNegatives proc near
+
  Invoke StdOut,         ADDR MsgResult
+ 
         XOR     ECX,    ECX
-        
-        mov     CX,     rows
         XOR     ESI,    ESI
+                
+        mov     CX,     rows
+
         
 OutputLoop:   
         mov     EBX,     ECX 
- Invoke dwtoa,  ns[ESI*2],ADDR InOutBuffer ; transfer F to buffer 
- Invoke StdOut,         ADDR InOutBuffer    ; output the result 
+ Invoke dwtoa, ns[ESI*2],ADDR InOutBuffer 
+ Invoke StdOut,         ADDR InOutBuffer   
  Invoke StdOut,         ADDR Space
         mov     ECX,    EBX 
         inc     ESI
@@ -124,15 +132,15 @@ OutputLoop:
 OutputNegatives endp 
          
 ModifyMatrix proc near
+
         XOR     ECX,    ECX
-        XOR     ESI,    ESI                 ; clear EDX
-        XOR     EDI,    EDI                 ; clear EDI   
-                  
-        mov     CX,     sizeofmatrix                  ; clear EDX
-        mov     DI,     cols
-        
+        XOR     ESI,    ESI                 ; clear required registers
+        XOR     EDI,    EDI 
         XOR     EBX,    EBX
-        XOR     EDX,    EDX
+        XOR     EDX,    EDX                  
+                  
+        mov     CX,     sizeofmatrix        ; loop counter
+        mov     DI,     cols                ; newline counter
         
         mov     DX,     ns[EBX*2]
         mov matrix[ESI*2], DX
@@ -156,28 +164,27 @@ InsertNumber:
         jmp     CountRowLoop   
              
 ModifyMatrix endp                  
-         
-         
+                  
          
 Start:
         XOR     EAX,    EAX
         XOR     EBX,    EBX
         XOR     EDX,    EDX
         XOR     ECX,    ECX
-        mov     AX,     0
- 
         XOR     ESI,    ESI
+        
         mov     CX,     sizeofmatrix
-        mov     BX,     CX
+        push    CX
+        
  Invoke StdOut,         ADDR MsgInput
-        mov     CX,     BX        
+        pop     CX     
+           
 InputMatrix:   
-        mov     BX,     CX
- Invoke StdIn,          ADDR InOutBuffer,LengthOf InOutBuffer
- Invoke StripLF,        ADDR InOutBuffer
+        push    CX
+ Invoke StdIn,          ADDR InOutBuffer, LengthOf InOutBuffer
  Invoke atol,           ADDR InOutBuffer
  
-        mov     CX,     BX
+        pop     CX
         mov  matrix[ESI*2],    AX  
         inc     ESI
         loop    InputMatrix
@@ -189,16 +196,15 @@ InputMatrix:
         call    OutputMatrix
            
 
-
-        ;mov     ns,     AX
- ;Invoke dwtoa,  ns,     ADDR InOutBuffer   ; transfer F to buffer 
- ;Invoke StdOut,         ADDR MsgResult     ; output resulting message 
- ;Invoke StdOut,         ADDR InOutBuffer   ; output the result 
-        XOR     EDX,    EDX                ; clear EDX
-        XOR     EAX,    EAX                ; clear EAX
-        XOR     EBX,    EBX                ; clear EBX  
+        XOR     EAX,    EAX 
+        XOR     EBX,    EBX  
+        XOR     ECX,    ECX
+        XOR     EDX,    EDX 
+        XOR     ESI,    ESI                     
+                
  Invoke StdOut,         ADDR MsgExit
  Invoke StdIn,          ADDR InOutBuffer,LengthOf InOutBuffer	
  Invoke ExitProcess,    0
+ 
         End    Start
 
