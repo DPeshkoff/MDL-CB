@@ -3,7 +3,6 @@ import random
 from copy import deepcopy
 import os
 
-
 # Global address variable
 address = os.path.dirname(__file__) + "\lab4.exe"
 
