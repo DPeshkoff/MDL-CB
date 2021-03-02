@@ -60,7 +60,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=13
+MilestoneOnDateDate=2
 MilestoneOnDateTimeYear=2021
 MilestoneOnDateTimeMonth=2
 MilestoneOnDateTimeDate=9
@@ -95,7 +95,7 @@ ProductVer4Range=0
 [Collapse]
 1=
 [Size]
-1=0,0,1706,740,365
+1=0,0,1706,740,1024
 [BookMark]
 0=
 1=
@@ -109,3 +109,5 @@ ProductVer4Range=0
 9=
 [BreakPoint]
 0=
+[Find]
+1=
