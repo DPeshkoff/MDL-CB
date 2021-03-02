@@ -43,6 +43,10 @@ MsgExit  DB    0AH,"Press Enter to Exit",0AH,0DH,0
         F1      WORD    65535
         F2      DWORD   65535
         
+<<<<<<< HEAD
+=======
+        te      BYTE    1
+>>>>>>> 03683ee2d40520299cae92c0e8c17cd8ba99df8c
 
          .DATA?
 inbuf   DB      100     DUP (?)
@@ -56,7 +60,11 @@ Start:
         sub     EAX,    B   ; EAX := EAX - B
         mov     X,      EAX ; Save to X
         add 	F1,     1
+<<<<<<< HEAD
         add 	F2,     1
+=======
+ 	    add 	F2,     1
+>>>>>>> 03683ee2d40520299cae92c0e8c17cd8ba99df8c
         XOR     EAX,    EAX ; Clear EAX
 Invoke  dwtoa,  X,      ADDR inbuf    ; Transfer X to buffer 
 Invoke  StdOut,         ADDR inbuf    ; Output the result 

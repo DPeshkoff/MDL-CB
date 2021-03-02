@@ -95,7 +95,11 @@ ProductVer4Range=0
 [Collapse]
 1=
 [Size]
+<<<<<<< HEAD
 1=0,0,1706,740,1024
+=======
+1=0,0,1706,740,1183
+>>>>>>> 03683ee2d40520299cae92c0e8c17cd8ba99df8c
 [BookMark]
 0=
 1=
