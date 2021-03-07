@@ -150,7 +150,10 @@ CCon:
         inc     WordsC
         mov     BL,     FirstL
         mov     BH,     LastL
-        cmp     BL, BH
+        cmp     BL,     1
+        je      CMPBH
+        jmp     CCCon
+CMPBH:  cmp     BH,     1
         je      WordFound
         
 CCCon:  
@@ -164,7 +167,7 @@ CCCon:
         
 WordFound:
 Invoke  dwtoa,  WordsC  ,ADDR InOutBuf
-Invoke  StdOut, ADDR InOutBuf                   ; TODO: copy and print word  
+Invoke  StdOut, ADDR InOutBuf                   
 Invoke  StdOut, ADDR Space
         jmp     CCCon     
         
