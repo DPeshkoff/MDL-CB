@@ -27,7 +27,6 @@ IncludeLib masm32.lib
 
          .CODE
     Start:
-
     InputB:                                 ; input SWORD B
  Invoke StdOut,         ADDR MsgInputB
  Invoke StdIn,          ADDR InOutBuffer,LengthOf InOutBuffer

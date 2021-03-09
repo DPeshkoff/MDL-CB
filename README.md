@@ -1,3 +1,4 @@
 # Machine Dependent Languages and Compilation Basics
+## Машинно-зависимые языки и основы компиляции
 
-3rd semester, 2021
+4th semester, 2021

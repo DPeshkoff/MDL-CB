@@ -102,6 +102,8 @@ def auto_test_run (address, lower_border, upper_border):
 # Main part of the program - no imports
 if __name__ == '__main__':
 
+    print("Dz1 tests")
+
     manual_test_run(address, "fgadavafaqe afgadavafaqe argadavafaqe aegadavafaqe aye ", [2, 3, 4, 5])
     manual_test_run(address, "ado from nothing edidio ", [1, 4])
     manual_test_run(address, "adaaahawaje afdaaahawaje afdaaahawaje abdaaahawaje aze ", [1, 2, 3, 4, 5])

@@ -60,7 +60,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=2
+MilestoneOnDateDate=9
 MilestoneOnDateTimeYear=2021
 MilestoneOnDateTimeMonth=2
 MilestoneOnDateTimeDate=9
@@ -96,7 +96,7 @@ ProductVer4Range=0
 1=
 [Size]
 <<<<<<< HEAD
-1=0,0,1706,740,1024
+1=0,0,1300,740,1126
 =======
 1=0,0,1706,740,1183
 >>>>>>> 03683ee2d40520299cae92c0e8c17cd8ba99df8c

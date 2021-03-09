@@ -1,9 +1,10 @@
 import asyncio
 import random
 from math import trunc
+import os
 
 # Global address variable
-address = "I:/asm/lab3/lab3.exe"
+address = os.path.dirname(__file__) + "\lab3.exe"
 
 write_info = False
 
@@ -58,14 +59,11 @@ def manual_test_run (address, args, control_result):
     if (int(control_result) == int(test_result)):
 
         if write_info == True:
-            print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))
+            print("[M] Test passed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))
         else:
-            print("Test passed \n \n")    
+            print("[M] Test passed \n \n")    
     else:
-        if write_info == False:
-            print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))   
-        else:
-            print("Test failed \n \n")    
+        print("[M] Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))     
 
 
 def auto_test_run (address, lower_border, upper_border):
@@ -82,25 +80,23 @@ def auto_test_run (address, lower_border, upper_border):
     try:
         int(test_result)
     except:
-        print("ValueError: ", test_result)
-        print("Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
+        print("[A] ValueError: ", test_result)
+        print("[A] Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
     else:
         if (int(control_result) == int(test_result)):
             if write_info == True:
-                print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
+                print("[A] Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format([b, y], control_result, test_result))
             else:
-                print("Test passed \n \n")    
+                print("[A] Test passed \n \n")    
         else:
-            if write_info == False:
-                print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format([b, y], control_result, test_result))   
-            else:
-                print("Test failed \n \n")    
+            print("[A] Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format([b, y], control_result, test_result))     
              
 # Main part of the program - no imports
 if __name__ == '__main__':
-
+    print("Lab3 tests")
     manual_test_run(address, [-1, 2], 3)
     manual_test_run(address, [1, 5], -4)
+    manual_test_run(address, [-2, 2], 3)
     auto_test_run(address, -5, 5)
     auto_test_run(address, -5, 5)
     auto_test_run(address, -5, 5)

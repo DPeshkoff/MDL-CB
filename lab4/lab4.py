@@ -65,14 +65,11 @@ def manual_test_run (address, args, control_result):
     if (control_result == test_result):
 
         if write_info == True:
-            print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))
+            print("[M] Test passed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))
         else:
-            print("Test passed \n \n")    
+            print("[M] Test passed \n \n")    
     else:
-        if write_info == False:
-            print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))   
-        else:
-            print("Test failed \n \n")    
+        print("[M] Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))      
 
 
 def auto_test_run (address, lower_border, upper_border):
@@ -97,19 +94,21 @@ def auto_test_run (address, lower_border, upper_border):
     try:
         test_result != []
     except:
-        print("ValueError: ", test_result)
-        print("Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format(args, control_result, test_result))
+        print("[A] ValueError: ", test_result)
+        print("[A] Test broken \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format(args, control_result, test_result))
     else:
         if (control_result == test_result):
             if write_info == True:
-                print("Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format(args, control_result, test_result))
+                print("[A] Test passed \n(\n args: {}, \n control_result: {} \n test_result: {} \n) \n \n".format(args, control_result, test_result))
             else:
-                print("Test passed \n \n")    
+                print("[A] Test passed \n \n")    
         else:
-            print("Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))    
+            print("[A] Test failed \n(\n args: {}, \n control_result: {} \n test_result: {}\n) \n \n".format(args, control_result, test_result))    
              
 # Main part of the program - no imports
 if __name__ == '__main__':
+
+    print("Lab4 tests")
 
     manual_test_run(address, [[1, -4, 0, 4, 5, 2], [-2, 4, -5, -2, 2, -1], [-5, 2, -3, 0, 2, -5], [5, 0, 0, 2, 3, 2]], [[-4, -4, 0, 4, 5, 2], [-10, 4, -5, -2, 2, -1], [-13, 2, -3, 0, 2, -5], [0, 0, 0, 2, 3, 2]])
     manual_test_run(address, [[5, 5, 1, 1, -5, -4], [-5, -4, 1, 4, 3, -5], [5, -4, -5, -1, -1, 3], [0, 5, -2, 4, 1, 0]], [[-9, 5, 1, 1, -5, -4], [-14, -4, 1, 4, 3, -5], [-11, -4, -5, -1, -1, 3], [-2, 5, -2, 4, 1, 0]])
