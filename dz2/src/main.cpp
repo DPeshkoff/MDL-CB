@@ -177,8 +177,6 @@ bool Parser::IsType(const std::string &src) {
     switch (std::hash<std::string>{}(src)) {
         case INT_HASH:
         case UINT_HASH:
-        case DOUBLE_HASH:
-        case FLOAT_HASH:
         case BOOL_HASH:
         case CHAR_HASH:
         case LONG_HASH:
@@ -188,7 +186,7 @@ bool Parser::IsType(const std::string &src) {
             return true;
         default:
             return false;
-            //    int | uint | double | float | bool | char | long | long
+            //    int | uint | bool | char | long | long
             //    long | unsigned long | unsigned long long
     }
     return true;
@@ -295,8 +293,8 @@ bool Parser::IsValue(std::string src) {
             error = true;
             return false;
         }
-    } else if (IsDigit(src[0])) {
-        for (std::string::reverse_iterator i = src.rbegin(); i != src.rend();
+    } else if (IsDigit(src[0]) or src[0] == '-') {
+        for (std::string::reverse_iterator i = src.rbegin(); i != src.rend() + 2;
              ++i) {
             if (!IsDigit(*i)) {
                 log("\033[1;31m[ERROR]\033[0m Value error: wrong value ", src);
